@@ -1,28 +1,29 @@
-{ lib, stdenvNoCC, fetchurl }:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
-  pname = "nanum";
-  version = "20200506";
+  pname = "contextFonts";
+  version = "0.1";
 
-  src = fetchurl {
-    url = "mirror://ubuntu/pool/universe/f/fonts-${pname}/fonts-${pname}_${version}.orig.tar.xz";
-    hash = "sha256-FXgDdIGYFRJQo898sDrvhE5AjpyYhJ3YieGRhGqsrUs=";
+  src = fetchzip {
+    url = "https://github.com/erdosxx/${pname}/releases/download/${version}/Adobe_Font_Folio_11.zip";
+    sha256 = "sha256-vUfzTXZ9+GtxvotRe3l4LzVH72vUmEKrss1kdKtKRys=";
+    stripRoot = true;
   };
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/share/fonts
-    cp *.ttf $out/share/fonts
+    find . -name "*.otf" -exec cp {} . \;
+    install -Dm644 *.otf -t $out/share/fonts/opentype
 
     runHook postInstall
   '';
 
   meta = with lib; {
-    description = "Nanum Korean font set";
-    homepage = "https://hangeul.naver.com/font";
+    homepage = "https://helpx.adobe.com/fonts/kb/font-folio-end-of-sale.html";
+    description = "Fonts for ConTeXt including Adobe Font Folio";
     license = licenses.ofl;
-    maintainers = with lib.maintainers; [ serge ];
     platforms = platforms.all;
+    maintainers = [ maintainers.rycee ];
   };
 }
