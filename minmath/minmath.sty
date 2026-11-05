@@ -13,20 +13,29 @@
 %% Triplex Italic) the sans-serif family, scaled by \triplexscale (default
 %% here 1.08, the cap-height ratio of Minion Pro to Triplex Sans), which may
 %% be changed in the preamble with \renewcommand*{\triplexscale}{<factor>}.
+%% Option `mathonly' sets up only the math: \rmdefault and \familydefault
+%% stay as they are (\sfdefault too, unless `myriad'/`triplex' is given), so
+%% another text font package (palatinolt, optimalt[rm], myriad[rm], ...) may
+%% be loaded before or after minmath. Math operators (\sin), digits in math
+%% and \mathrm still use Minion Pro, as the Minion Math setup requires.
 %% Every other package option is passed on to minionmath.sty (e.g.
 %% intlimits, textcomp, extraops).
 %%
 %% NOTE: non-free fonts (typoma / Adobe licenses).
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{minmath}[2026/10/17 v1.0 Minion Pro text + Minion Math]
+\ProvidesPackage{minmath}[2026/11/06 v1.1 Minion Pro text + Minion Math]
 \let\minmath@sf\@empty
+\newif\ifminmath@text \minmath@texttrue
+\DeclareOption{mathonly}{\minmath@textfalse}
 \DeclareOption{myriad}{\def\minmath@sf{myriadpro}}
 \DeclareOption{triplex}{\def\minmath@sf{triplexsans}}
 \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{minionmath}}
 \ProcessOptions\relax
 \RequirePackage[T1]{fontenc}
-\renewcommand{\rmdefault}{minionpro}
-\renewcommand{\familydefault}{\rmdefault}
+\ifminmath@text
+  \renewcommand{\rmdefault}{minionpro}
+  \renewcommand{\familydefault}{\rmdefault}
+\fi
 \ifx\minmath@sf\@empty\else
   \edef\sfdefault{\minmath@sf}
 \fi

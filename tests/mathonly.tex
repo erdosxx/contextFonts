@@ -1,0 +1,39 @@
+% mathonly.tex — test page for \usepackage[mathonly]{minmath}: Minion Math
+% for math with other text fonts. The text packages are loaded *before*
+% minmath on purpose; with mathonly the text font defaults must survive.
+% Build: `just testdocs` (in `nix develop`) -> tests/out/mathonly.pdf
+\documentclass[11pt]{article}
+\usepackage{palatinolt}           % main text: Palatino LT Std
+\usepackage{myriad}               % sans: Myriad Pro
+\usepackage[none]{optimalt}       % only \optimafamily
+\usepackage[mathonly]{minmath}    % math only: Minion Math
+\usepackage[margin=25mm]{geometry}
+% Fail the build if minmath changed the text font defaults.
+\makeatletter
+\def\mo@check#1#2{\def\mo@want{#2}\ifx#1\mo@want\else
+  \PackageError{mathonly-test}{\string#1 is `#1', expected `#2'}{}\fi}
+\mo@check\rmdefault{palatino}
+\mo@check\familydefault{\rmdefault}
+\mo@check\sfdefault{myriad}
+\makeatother
+\newcommand{\sample}{Let $f\colon \mathbb{R}^n \to \mathbb{R}$ with
+  $f(x) = \sum_{i=1}^{n} a_i x_i^2 + b$ and $\sin^2\theta + \cos^2\theta = 1$
+  for all $\theta\in[0,2\pi)$; \textit{italic text} and figures 0123456789.
+  \[ \int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}, \qquad
+     \zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s}
+     \quad\text{if } \operatorname{Re} s > 1. \]}
+
+\begin{document}
+
+\section*{Minion Math with other text fonts (minmath[mathonly])}
+
+\subsection*{Palatino LT Std text}
+\sample
+
+\subsection*{\sffamily Myriad Pro text}
+{\sffamily \sample}
+
+\subsection*{\optimafamily Optima LT Std text}
+{\optimafamily \sample}
+
+\end{document}

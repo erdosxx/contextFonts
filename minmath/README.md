@@ -2,7 +2,7 @@
 
 | File | Role |
 | --- | --- |
-| `minmath.sty` | `\usepackage{minmath}`: T1 + Minion Pro text (`minionpro`) + `minionmath[withamsmath,amssymb]` + `amsmath` + `minionamsmath`, with a fix for the math accents under LaTeX ≥ 2020. Options `myriad` / `triplex` pick Myriad Pro / Emigre Triplex Sans as sans-serif (Triplex Sans from the separate `triplex` package, scaled by `\triplexscale`, default 1.08 = cap-height ratio Minion Pro : Triplex Sans); other options are passed to `minionmath.sty`. |
+| `minmath.sty` | `\usepackage{minmath}`: T1 + Minion Pro text (`minionpro`) + `minionmath[withamsmath,amssymb]` + `amsmath` + `minionamsmath`, with a fix for the math accents under LaTeX ≥ 2020. Option `mathonly` keeps the text fonts unchanged (Minion Math with another text font, any load order). Options `myriad` / `triplex` pick Myriad Pro / Emigre Triplex Sans as sans-serif (Triplex Sans from the separate `triplex` package, scaled by `\triplexscale`, default 1.08 = cap-height ratio Minion Pro : Triplex Sans); other options are passed to `minionmath.sty`. |
 | `glyphmap.tsv` | Vendor glyph name → code point in the Minion Math 1.026 OTFs, plus how each was found (`direct`, `gsub`, `block`, `layout`, `shape`, `override`). |
 | `add_glyph_names.py` | Build step: copies each mapped glyph under its vendor name, then writes a bare CFF for `cfftot1`. |
 | `resolve_glyphs.py` | Dev tool that generated `glyphmap.tsv`. |

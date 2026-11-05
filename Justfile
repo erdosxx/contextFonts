@@ -11,7 +11,7 @@ default:
     @just --list
 
 # Build all test PDFs: tests/out/<name>.pdf for every recipe below
-testdocs: minmath triplex mtp2 optima palatino trajan minion myriad
+testdocs: minmath triplex mtp2 optima palatino trajan minion myriad mathonly
 
 # Build tests/<name>.tex; fail unless every font pattern is embedded, no
 # bitmap (Type 3) font was used and no glyph was reported missing.
@@ -45,6 +45,9 @@ minion: (_doc "minion" "MinionPro-Capt" "MinionPro-Regular" "MinionPro-Disp" "Mi
 
 # Myriad Pro (myriad, \usepackage{myriad}): weights x widths
 myriad: (_doc "myriad" "MyriadPro-Light" "MyriadPro-BlackSemiExtIt" "MyriadPro-BoldCond" "MyriadPro-SemiCn")
+
+# Minion Math with other text fonts (\usepackage[mathonly]{minmath})
+mathonly: (_doc "mathonly" "MinionMath-" "PalatinoLTStd-Roman" "MyriadPro-Regular" "OptimaLTStd")
 
 clean:
     rm -rf {{outdir}}
