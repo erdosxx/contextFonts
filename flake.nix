@@ -24,6 +24,8 @@
     #   minmath         TeX package: typoma Minion Math + Minion Pro text
     #   triplex         TeX package: Emigre Triplex Sans/Serif
     #   mtp2            TeX package: MathTime Pro II (complete)
+    #   optima          TeX package: Optima LT Std (Adobe Font Folio)
+    #   palatino        TeX package: Palatino LT Std (Adobe Font Folio)
     #   adobeFontFolio, triplexOtf  the two halves of contextFonts
     # Use the TeX packages like texlivePackages:
     #   pkgs.texliveSmall.withPackages (ps: [ps.latexmk minmath triplex mtp2])
@@ -32,8 +34,8 @@
     in
       pkgs // {default = pkgs.contextFonts;});
 
-    # devShells.<system>.default: TeX Live with minmath, triplex and mtp2 for
-    # the test documents in tests/ (`just testdocs`).
+    # devShells.<system>.default: TeX Live with minmath, triplex, mtp2, optima
+    # and palatino for the test documents in tests/ (`just testdocs`).
     devShells = forAllSystems (system: let
       pkgs = pkgsFor system;
       cf = self.packages.${system};
@@ -43,6 +45,8 @@
         cf.minmath
         cf.triplex
         cf.mtp2
+        cf.optima
+        cf.palatino
       ]);
     in {
       default = pkgs.mkShell {

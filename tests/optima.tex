@@ -1,0 +1,38 @@
+% optima.tex — test page for the optima package (Optima LT Std from Adobe Font Folio 11
+% under pdfLaTeX, packaged by ../nix/optima.nix; LaTeX package optimalt.sty).
+% Build: `just testdocs` (in `nix develop`) -> tests/out/optima.pdf
+\documentclass[11pt]{article}
+\usepackage[rm]{optimalt} % Optima LT Std as the main text font
+\usepackage[margin=25mm]{geometry}
+\newcommand{\pangram}{The quick brown fox jumps over the lazy dog; fi, fl,
+  ff ligatures and figures 0123456789.}
+
+\begin{document}
+
+\section*{Optima LT Std test}
+
+{\fontseries{m}\selectfont Regular (m): \pangram\par
+ \itshape Regular Italic: \pangram\par}
+{\fontseries{mb}\selectfont Medium (mb): \pangram\par
+ \itshape Medium Italic: \pangram\par}
+{\fontseries{db}\selectfont DemiBold (db): \pangram\par
+ \itshape DemiBold Italic: \pangram\par}
+{\fontseries{b}\selectfont Bold (b): \pangram\par
+ \itshape Bold Italic: \pangram\par}
+{\fontseries{k}\selectfont Black (k): \pangram\par
+ \itshape Black Italic: \pangram\par}
+{\fontseries{ub}\selectfont ExtraBlack (ub): \pangram\par
+ \itshape ExtraBlack Italic: \pangram\par}
+
+\medskip
+Standard commands: \textbf{bold (b)}, \textit{italic}, \textbf{\textit{bold
+italic}}, \textsl{slanted (= italic)}, \textsc{Small Caps}.
+Accents: \'a \`e \^o \"u \~n \c{c} \v{s} \r{a} {\ss} {\ae} {\oe} {\o};
+quotes ``double'' `single' --- dashes -- and \guillemotleft guillemets\guillemotright.
+Text symbols: \textbullet\ \textdegree\ \texteuro\ \textcopyright\
+\textregistered\ \S\ \P\ \textperthousand.
+
+{\small Small text. \footnotesize Footnote size.} {\Large Large text.}
+{\Huge Huge.}
+
+\end{document}

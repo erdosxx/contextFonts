@@ -1,0 +1,37 @@
+% palatino.tex — test page for the palatino package (Palatino LT Std from Adobe Font Folio 11
+% under pdfLaTeX, packaged by ../nix/palatino.nix; LaTeX package palatinolt.sty).
+% Build: `just testdocs` (in `nix develop`) -> tests/out/palatino.pdf
+\documentclass[11pt]{article}
+\usepackage[rm]{palatinolt} % Palatino LT Std as the main text font
+\usepackage[margin=25mm]{geometry}
+\newcommand{\pangram}{The quick brown fox jumps over the lazy dog; fi, fl,
+  ff ligatures and figures 0123456789.}
+
+\begin{document}
+
+\section*{Palatino LT Std test}
+
+{\fontseries{l}\selectfont Light (l): \pangram\par
+ \itshape Light Italic: \pangram\par}
+{\fontseries{m}\selectfont Roman (m): \pangram\par
+ \itshape Roman Italic: \pangram\par}
+{\fontseries{mb}\selectfont Medium (mb): \pangram\par
+ \itshape Medium Italic: \pangram\par}
+{\fontseries{b}\selectfont Bold (b): \pangram\par
+ \itshape Bold Italic: \pangram\par}
+{\fontseries{k}\selectfont Black (k): \pangram\par
+ \itshape Black Italic: \pangram\par}
+\textsc{Small Capitals from the Roman: The Quick Brown Fox 0123456789.}\par
+
+\medskip
+Standard commands: \textbf{bold (b)}, \textit{italic}, \textbf{\textit{bold
+italic}}, \textsl{slanted (= italic)}, \textsc{Small Caps}.
+Accents: \'a \`e \^o \"u \~n \c{c} \v{s} \r{a} {\ss} {\ae} {\oe} {\o};
+quotes ``double'' `single' --- dashes -- and \guillemotleft guillemets\guillemotright.
+Text symbols: \textbullet\ \textdegree\ \texteuro\ \textcopyright\
+\textregistered\ \S\ \P\ \textperthousand.
+
+{\small Small text. \footnotesize Footnote size.} {\Large Large text.}
+{\Huge Huge.}
+
+\end{document}

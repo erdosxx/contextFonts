@@ -1,8 +1,8 @@
 # packages.nix — all packages of this repository for one nixpkgs instance.
 #
-# The TeX packages (minmath, triplex, mtp2) are TeX-Live-shaped derivations
-# (outputSpecified/tlOutputName/fontMaps) meant to be passed to
-# texlive.withPackages next to texlivePackages, e.g.
+# The TeX packages (minmath, triplex, mtp2, optima, palatino) are
+# TeX-Live-shaped derivations (outputSpecified/tlOutputName/fontMaps) meant to
+# be passed to texlive.withPackages next to texlivePackages, e.g.
 #   pkgs.texliveSmall.withPackages (ps: [ps.latexmk minmath triplex mtp2])
 #
 # NOTE: all fonts are non-free; `pkgs` must allow unfree packages.
@@ -19,4 +19,6 @@ in {
   minmath = callPackage ./minmath.nix {inherit sources adobeFontFolio;};
   triplex = callPackage ./triplex.nix {inherit sources;};
   mtp2 = callPackage ./mtp2.nix {inherit sources;};
+  optima = callPackage ./optima.nix {inherit adobeFontFolio;};
+  palatino = callPackage ./palatino.nix {inherit adobeFontFolio;};
 }
