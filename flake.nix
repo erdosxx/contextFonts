@@ -21,7 +21,10 @@
     # packages.<system>:
     #   contextFonts    Adobe Font Folio 11 + Emigre Triplex OTFs in
     #                   share/fonts/opentype (NixOS: fonts.packages)
+    #   mtp2            TeX package: MathTime Pro II (complete)
     #   adobeFontFolio, triplexOtf  the two halves of contextFonts
+    # Use the TeX packages like texlivePackages:
+    #   pkgs.texliveSmall.withPackages (ps: [ps.latexmk mtp2])
     packages = forAllSystems (system: let
       pkgs = import ./nix/packages.nix (pkgsFor system);
     in
