@@ -1,0 +1,32 @@
+%% triplex.sty -- Emigre Triplex for pdfLaTeX.
+%%
+%% Part of the "triplex" TeX Live package (../nix/triplex.nix). NFSS families
+%% (T1 and TS1): "triplexsans" (Triplex Sans) and "triplexserif" (Triplex
+%% Serif), series m/b/eb = Light/Bold/XBold, shapes n/it (italic from Triplex
+%% Italic; sc -> n, sl -> it).
+%%
+%% Options:
+%%   (default)  Triplex Sans becomes \sfdefault
+%%   serif      Triplex Serif becomes \rmdefault (and \familydefault)
+%%   nosans     leave \sfdefault alone
+%% Triplex Sans is loaded scaled by \triplexscale (default 1), e.g.
+%% \renewcommand*{\triplexscale}{1.08} to match Minion Pro capitals.
+%%
+%% NOTE: non-free fonts (Emigre license).
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{triplex}[2026/11/06 v1.0 Emigre Triplex Sans/Serif]
+\newif\iftriplex@sans \triplex@sanstrue
+\newif\iftriplex@serif
+\DeclareOption{serif}{\triplex@seriftrue}
+\DeclareOption{nosans}{\triplex@sansfalse}
+\ProcessOptions\relax
+\RequirePackage[T1]{fontenc}
+\providecommand*{\triplexscale}{1}
+\iftriplex@sans
+  \renewcommand{\sfdefault}{triplexsans}
+\fi
+\iftriplex@serif
+  \renewcommand{\rmdefault}{triplexserif}
+  \renewcommand{\familydefault}{\rmdefault}
+\fi
+\endinput
