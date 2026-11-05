@@ -1,0 +1,58 @@
+% mtp2.tex — test page for the mtp2 package (MathTime Pro II complete under
+% pdfLaTeX, packaged by ../nix/mtp2.nix).
+% Build: `just testdocs` (in `nix develop`) -> tests/out/mtp2.pdf
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[complete,amssymbols,mtpcal,mtpscr,mtpfrak,mtpbb]{mtpro2}
+\usepackage[margin=25mm]{geometry}
+
+\begin{document}
+
+\section*{MathTime Pro II test}
+
+Times text with MathTime Pro II math. Inline: let
+$f\colon \mathbb{R}^n \to \mathbb{R}$ with
+$f(x) = \sum_{i=1}^{n} a_i x_i^2 + b$, $\alpha,\beta,\gamma,\Gamma,\Delta,
+\Omega$, $\sin^2\theta + \cos^2\theta = 1$; alphabets $\mathcal{L}$,
+$\mathscr{L}$, $\mathfrak{g}$, $\mathbb{N}\subset\mathbb{Z}\subset\mathbb{Q}$;
+$\hbar$, $\ell$, $\partial$, $\nabla$, $\infty$, $\aleph_0$.
+
+\begin{equation}
+  \int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi},
+  \qquad
+  \zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s}
+           = \prod_{p\ \text{prime}} \frac{1}{1-p^{-s}} .
+\end{equation}
+\begin{align}
+  \mathbf{E}[X] &= \int_\Omega X\,d\mathbb{P},\qquad
+  \operatorname{Var}(X) = \mathbf{E}\bigl[(X-\mu)^2\bigr], \\
+  \left( \sum_{k=1}^{n} a_k b_k \right)^{\!2}
+  &\le \left(\sum_{k=1}^{n} a_k^2\right)\left(\sum_{k=1}^{n} b_k^2\right).
+\end{align}
+\[
+  A = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix},\quad
+  \Bigl\{ x\in\mathbb{Z} : \lfloor x/2 \rfloor \ne \lceil x/2 \rceil \Bigr\},
+  \quad \bigcup_{i\in I} A_i \quad \bigoplus_{k} V_k \quad \oint_C \omega .
+\]
+Relations and AMS symbols:
+$a \leqslant b \geqslant c$, $A\subseteq B\cup C$, $x\notin\varnothing$,
+$p\Rightarrow q \iff \neg q\Rightarrow\neg p$, $u\otimes v\oplus w$,
+$x \approx y \sim z \simeq w \equiv v \propto t$, $\curlyvee$, $\square$.
+
+Accents and radicals:
+$\hat{x}, \tilde{x}, \bar{x}, \vec{v}, \dot{x}, \ddot{x}$;
+$\widehat{xyz}$, $\widetilde{xyz}$, $\overline{AB}$, $\sqrt{2}$,
+$\sqrt[3]{x+y}$, $\sqrt{\frac{a}{b}}$.
+Growing delimiters:
+$\bigl(\Bigl(\biggl(\Biggl( \Biggr)\biggr)\Bigr)\bigr)$
+$\bigl\{\Bigl\{\biggl\{\Biggl\{ \Biggr\}\biggr\}\Bigr\}\bigr\}$
+\[
+  \left( \rule{0pt}{14mm} \right) \left\{ \rule{0pt}{14mm} \right\}
+  \sqrt{\rule{0pt}{14mm}x+y}
+\]
+
+Bold math: {\boldmath $\alpha + \beta = \gamma,\ \sum_i x_i^2,\ \int f$}.
+
+\end{document}

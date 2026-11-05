@@ -32,6 +32,24 @@
     in
       pkgs // {default = pkgs.contextFonts;});
 
+    # devShells.<system>.default: TeX Live with minmath, triplex and mtp2 for
+    # the test documents in tests/ (`just testdocs`).
+    devShells = forAllSystems (system: let
+      pkgs = pkgsFor system;
+      cf = self.packages.${system};
+      texlive = pkgs.texliveSmall.withPackages (ps: [
+        ps.latexmk
+        ps.geometry
+        cf.minmath
+        cf.triplex
+        cf.mtp2
+      ]);
+    in {
+      default = pkgs.mkShell {
+        packages = [texlive pkgs.just pkgs.poppler-utils];
+      };
+    });
+
     # Overlay adding the packages to a consumer's nixpkgs (needs allowUnfree).
     overlays.default = final: prev: import ./nix/packages.nix final;
   };

@@ -1,0 +1,77 @@
+% minmath.tex — test page for the minmath package (typoma Minion Math +
+% Minion Pro text under pdfLaTeX, packaged by ../nix/minmath.nix).
+% Build: `just testdocs` (in `nix develop`) -> tests/out/minmath.pdf
+%
+% minmath.sty loads fontenc[T1], minionmath[withamsmath,amssymb], amsmath and
+% minionamsmath in the order minionmath.sty requires, and makes Minion Pro
+% (family "minionpro") the text font.
+\documentclass[11pt]{article}
+\usepackage{minmath}
+\usepackage[margin=25mm]{geometry}
+
+\begin{document}
+
+\section*{Minion Math test}
+
+This is Minion Pro text set with the \textbf{minmath} package. The quick
+brown fox jumps over the lazy dog; fi, fl, ff ligatures and figures 0123456789.
+\textit{Italic text: the quick brown fox jumps over the lazy dog.}
+\textbf{Bold text} and \textbf{\textit{bold italic}}, \textsc{Small Capitals},
+{\fontseries{sb}\selectfont semibold} and {\fontseries{d}\selectfont medium}.
+{\small Small text uses the caption optical size.} {\Large Large text uses
+subhead size.}
+
+Inline math: let $f\colon \mathbb{R}^n \to \mathbb{R}$ with
+$f(x) = \sum_{i=1}^{n} a_i x_i^2 + b$, $\alpha,\beta,\gamma,\Gamma,\Delta,
+\Omega$, and $\sin^2\theta + \cos^2\theta = 1$ for every
+$\theta\in[0,2\pi)$; also $\mathcal{L}$, $\mathfrak{g}$, $\hbar$, $\ell$,
+$\partial$, $\nabla$, $\infty$, $\aleph_0$.
+
+Display math:
+\begin{equation}
+  \int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi},
+  \qquad
+  \zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s}
+           = \prod_{p\ \text{prime}} \frac{1}{1-p^{-s}} .
+\end{equation}
+\begin{align}
+  \mathbf{E}[X] &= \int_\Omega X\,d\mathbb{P},\qquad
+  \operatorname{Var}(X) = \mathbf{E}\bigl[(X-\mu)^2\bigr], \\
+  \hat{\theta}_n &\xrightarrow{\;p\;} \theta
+  \quad\text{as } n\to\infty,\qquad
+  \lim_{x\to 0}\frac{\sin x}{x} = 1, \\
+  \left( \sum_{k=1}^{n} a_k b_k \right)^{\!2}
+  &\le \left(\sum_{k=1}^{n} a_k^2\right)\left(\sum_{k=1}^{n} b_k^2\right).
+\end{align}
+Matrices and delimiters:
+\[
+  A = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix},\quad
+  \det A = \begin{vmatrix} a & b \\ c & d \end{vmatrix} = ad-bc,\quad
+  \Bigl\{ x\in\mathbb{Z} : \lfloor x/2 \rfloor \ne \lceil x/2 \rceil \Bigr\}.
+\]
+Relations and symbols:
+$a \le b \leq c \ge d$, $A\subseteq B\cup C$, $x\notin\emptyset$,
+$p\Rightarrow q \iff \neg q\Rightarrow\neg p$, $f\circ g$,
+$u\otimes v\oplus w$, $\forall\epsilon>0\ \exists\delta>0$,
+$x \approx y \sim z \simeq w \equiv v \propto t$.
+
+Accents and radicals:
+$\hat{x}, \tilde{x}, \bar{x}, \vec{v}, \dot{x}, \ddot{x}, \check{x}, \breve{x},
+\acute{x}, \grave{x}, \hat{A}$; $\widehat{xyz}$, $\widetilde{xyz}$,
+$\overline{AB}$, $\overrightarrow{AB}$, $\sqrt{2}$, $\sqrt[3]{x+y}$,
+$\sqrt{\frac{a}{b}}$.
+Growing delimiters:
+$\bigl(\Bigl(\biggl(\Biggl( \Biggr)\biggr)\Bigr)\bigr)$
+$\bigl[\Bigl[\biggl[\Biggl[ \Biggr]\biggr]\Bigr]\bigr]$
+$\bigl\{\Bigl\{\biggl\{\Biggl\{ \Biggr\}\biggr\}\Bigr\}\bigr\}$
+$\bigl\langle\Bigl\langle\biggl\langle\Biggl\langle \Biggr\rangle\biggr\rangle\Bigr\rangle\bigr\rangle$
+\[
+  \left( \rule{0pt}{14mm} \right) \left[ \rule{0pt}{14mm} \right]
+  \left\{ \rule{0pt}{14mm} \right\} \sqrt{\rule{0pt}{14mm}x+y}
+  \qquad \bigcup_{i\in I} A_i \quad \bigoplus_{k} V_k \quad \oint_C \omega
+  \quad \iint_D f \, dA .
+\]
+
+Bold math: {\boldmath $\alpha + \beta = \gamma,\ \sum_i x_i^2,\ \int f$}.
+
+\end{document}

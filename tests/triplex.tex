@@ -1,0 +1,44 @@
+% triplex.tex — test page for the triplex package (Emigre Triplex Sans/Serif
+% under pdfLaTeX, packaged by ../nix/triplex.nix), alone and with minmath.
+% Build: `just testdocs` (in `nix develop`) -> tests/out/triplex.pdf
+\documentclass[11pt]{article}
+\usepackage[triplex]{minmath} % Minion Pro + Minion Math, Triplex Sans as \sffamily
+\usepackage[nosans]{triplex}  % Triplex Serif available as family triplexserif
+\usepackage[margin=25mm]{geometry}
+\newcommand{\pangram}{The quick brown fox jumps over the lazy dog; fi, fl,
+  ff ligatures and figures 0123456789.}
+\newcommand{\triplexserif}{\fontfamily{triplexserif}\selectfont}
+
+\begin{document}
+
+\section*{\sffamily Triplex test}
+
+\subsection*{\sffamily Triplex Sans (family \textit{triplexsans})}
+{\sffamily
+Light: \pangram\par
+\textit{Light Italic: \pangram}\par
+\textbf{Bold: \pangram}\par
+\textbf{\textit{Bold Italic: \pangram}}\par
+{\fontseries{eb}\selectfont XBold: \pangram}\par
+{\fontseries{eb}\selectfont\itshape XBold Italic: \pangram}\par
+Accents: \'a \`e \^o \"u \~n \c{c} \v{s} \r{a} {\ss} {\ae} {\o};
+quotes ``double'' `single' --- dashes -- and \guillemotleft guillemets\guillemotright.
+% (Triplex has no euro, section sign, o-double-acute or e-ogonek glyphs.)
+Text symbols: \textbullet\ \textdegree\ \textcopyright\ \textregistered\ \P.\par
+}
+
+\subsection*{\sffamily Triplex Serif (family \textit{triplexserif})}
+{\triplexserif
+Light: \pangram\par
+\textit{Italic: \pangram}\par
+\textbf{Bold: \pangram}\par
+{\fontseries{eb}\selectfont XBold: \pangram}\par
+}
+
+\subsection*{\sffamily Mixed with Minion Pro and Minion Math}
+Minion Pro body text with \textsf{Triplex Sans} and {\triplexserif Triplex
+Serif} inline, and math $\int_0^1 f(x)\,dx = \sum_{n\ge 0} a_n$.
+Triplex Sans is scaled by \textit{triplexscale} = \triplexscale\ to match the
+Minion Pro capitals: H\textsf{H}x\textsf{x}.
+
+\end{document}
