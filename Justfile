@@ -1,6 +1,6 @@
 # Test documents for the TeX packages of this flake. Run inside `nix develop`
 # (devShells.default provides pdflatex/latexmk with minmath, triplex, mtp2,
-# optima and palatino, plus pdffonts). PDFs go to tests/out/.
+# optima, palatino and trajan, plus pdffonts). PDFs go to tests/out/.
 
 set shell := ["bash", "-euo", "pipefail", "-c"]
 
@@ -10,7 +10,7 @@ default:
     @just --list
 
 # Build all test PDFs: tests/out/<name>.pdf for every recipe below
-testdocs: minmath triplex mtp2 optima palatino
+testdocs: minmath triplex mtp2 optima palatino trajan
 
 # Build tests/<name>.tex; fail unless every font pattern is embedded, no
 # bitmap (Type 3) font was used and no glyph was reported missing.
@@ -35,6 +35,9 @@ optima: (_doc "optima" "OptimaLTStd-Black" "OptimaLTStd-ExtraBlack" "OptimaLTStd
 
 # Palatino LT Std (palatino, \usepackage{palatinolt})
 palatino: (_doc "palatino" "PalatinoLTStd-Light" "PalatinoLTStd-Roman" "PalatinoLTStd-BlackItalic")
+
+# Trajan Pro (trajan, \usepackage{trajan})
+trajan: (_doc "trajan" "TrajanPro-Regular" "TrajanPro-Bold")
 
 clean:
     rm -rf {{outdir}}

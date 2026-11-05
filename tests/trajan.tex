@@ -1,0 +1,38 @@
+% trajan.tex — test page for the trajan package (Trajan Pro from Adobe Font
+% Folio 11 under pdfLaTeX, packaged by ../nix/trajan.nix; LaTeX package
+% trajan.sty). Trajan is capitals-only: lowercase letters are small capitals.
+% Build: `just testdocs` (in `nix develop`) -> tests/out/trajan.pdf
+\documentclass[11pt]{article}
+\usepackage{palatinolt}             % body text: Palatino LT Std
+\usepackage{trajan}                 % \trajanfamily for display lines
+\usepackage[margin=25mm]{geometry}
+\newcommand{\pangram}{The Quick Brown Fox Jumps over the Lazy Dog 0123456789}
+
+\begin{document}
+
+{\trajanfamily\Huge Trajan Pro\par}
+\bigskip
+
+{\trajanfamily
+\textbf{Regular (m)}\par
+\pangram\par
+{\Large SENATVS POPVLVSQVE ROMANVS\par}
+\textsc{All small caps (smcp+c2sc): \pangram}\par
+\medskip
+{\bfseries Bold (b)\par
+\pangram\par
+{\Large SENATVS POPVLVSQVE ROMANVS\par}
+\textsc{All small caps (smcp+c2sc): \pangram}\par}
+\medskip
+Italic falls back to upright: \textit{\pangram}\par
+Accents: \'A \`E \^O \"U \~N \c{C} \v{S} \r{A} \H{O} \k{E} {\AE} {\OE} {\O}
+\'a \`e \^o \"u \~n \c{c} \v{s} \r{a}; ``quotes'' --- dashes --
+\guillemotleft guillemets\guillemotright.
+Symbols: \textbullet\ \textdegree\ \textcopyright\ \textregistered\ \S\ \P\
+\textperthousand\ \textdagger.\par
+}
+
+\bigskip
+Palatino body text with an inline {\trajanfamily Trajan Pro} heading word.
+
+\end{document}
