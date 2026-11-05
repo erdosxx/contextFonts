@@ -1,0 +1,35 @@
+% myriad.tex — test page for the myriad package (Myriad Pro from Adobe Font
+% Folio 11 under pdfLaTeX, packaged by ../nix/myriad.nix; LaTeX package
+% myriad.sty). Build: `just testdocs` (in `nix develop`) -> tests/out/myriad.pdf
+\documentclass[11pt]{article}
+\usepackage[rm]{myriad} % Myriad Pro as the main text font
+\usepackage[margin=20mm]{geometry}
+\newcommand{\pangram}{The quick brown fox jumps over the lazy dog 0123456789.}
+\newcommand{\weight}[2]{%
+  {\fontseries{#1}\selectfont #2 (#1): \pangram\ \itshape Italic.\par}}
+\newcommand{\width}[2]{% width code (empty = normal), width name
+  \subsection*{#2}
+  \weight{l#1}{Light}
+  \weight{\ifx\relax#1\relax m\else#1\fi}{Regular}
+  \weight{sb#1}{Semibold}
+  \weight{b#1}{Bold}
+  \weight{k#1}{Black}}
+
+\begin{document}
+
+\section*{Myriad Pro test}
+
+\width{}{Normal width}
+\width{c}{Condensed (c)}
+\width{sc}{SemiCondensed (sc)}
+\width{sx}{SemiExtended (sx)}
+
+\subsection*{Text symbols}
+\textbf{bold}, \textit{italic}, \textbf{\textit{bold italic}}, \textsl{slanted
+(= italic)}, \textsc{Small Caps (= upright)}. Accents: \'a \`e \^o \"u \~n
+\c{c} \v{s} \r{a} \H{o} \k{e} {\ss} {\ae} {\oe} {\o}; quotes ``double''
+`single' --- dashes -- and \guillemotleft guillemets\guillemotright. Symbols:
+\textbullet\ \textdegree\ \texteuro\ \textcopyright\ \textregistered\ \S\ \P\
+\textperthousand\ \textdagger.
+
+\end{document}

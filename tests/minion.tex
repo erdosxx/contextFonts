@@ -1,0 +1,41 @@
+% minion.tex — test page for the minion package (Minion Pro from Adobe Font
+% Folio 11 under pdfLaTeX, packaged by ../nix/minion.nix; LaTeX package
+% minion.sty). Build: `just testdocs` (in `nix develop`) -> tests/out/minion.pdf
+\documentclass[11pt]{article}
+\usepackage{minion} % Minion Pro as the main text font
+\usepackage{myriad} % Myriad Pro as \sffamily
+\usepackage[margin=25mm]{geometry}
+\newcommand{\pangram}{The quick brown fox jumps over the lazy dog; fi, fl,
+  ff, ffi ligatures and figures 0123456789.}
+\newcommand{\weights}[1]{%
+  {\fontseries{#1}\selectfont #1: \pangram\par
+   \itshape #1 italic: \pangram\par
+   \upshape\scshape #1 small caps: \pangram\par}}
+
+\begin{document}
+
+\section*{Minion Pro test}
+
+\subsection*{Weights (m, mb, sb, b)}
+\weights{m}\weights{mb}\weights{sb}\weights{b}
+
+\subsection*{Condensed (c, mbc, sbc, bc)}
+\weights{c}\weights{mbc}\weights{sbc}\weights{bc}
+
+\subsection*{Optical sizes}
+{\fontsize{7}{9}\selectfont Caption (7pt, MinionPro-Capt): \pangram\par}
+{\fontsize{11}{13}\selectfont Text (11pt, MinionPro-Regular): \pangram\par}
+{\fontsize{18}{21}\selectfont Subhead (18pt, Subh): Hamburgefonstiv\par}
+{\fontsize{32}{36}\selectfont Display (32pt, Disp): Hamburgefonstiv\par}
+
+\subsection*{Text symbols}
+\textbf{bold}, \textit{italic}, \textbf{\textit{bold italic}}, \textsl{slanted
+(= italic)}, \textsc{Small Caps}. Accents: \'a \`e \^o \"u \~n \c{c} \v{s}
+\r{a} \H{o} \k{e} {\ss} {\ae} {\oe} {\o}; quotes ``double'' `single' ---
+dashes -- and \guillemotleft guillemets\guillemotright. Symbols: \textbullet\
+\textdegree\ \texteuro\ \textcopyright\ \textregistered\ \S\ \P\
+\textperthousand\ \textdagger.
+
+Minion Pro text with \textsf{Myriad Pro sans} from the myriad package.
+
+\end{document}

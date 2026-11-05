@@ -1,6 +1,7 @@
 # Test documents for the TeX packages of this flake. Run inside `nix develop`
 # (devShells.default provides pdflatex/latexmk with minmath, triplex, mtp2,
-# optima, palatino and trajan, plus pdffonts). PDFs go to tests/out/.
+# optima, palatino, trajan, minion and myriad, plus pdffonts). PDFs go to
+# tests/out/.
 
 set shell := ["bash", "-euo", "pipefail", "-c"]
 
@@ -10,7 +11,7 @@ default:
     @just --list
 
 # Build all test PDFs: tests/out/<name>.pdf for every recipe below
-testdocs: minmath triplex mtp2 optima palatino trajan
+testdocs: minmath triplex mtp2 optima palatino trajan minion myriad
 
 # Build tests/<name>.tex; fail unless every font pattern is embedded, no
 # bitmap (Type 3) font was used and no glyph was reported missing.
@@ -38,6 +39,12 @@ palatino: (_doc "palatino" "PalatinoLTStd-Light" "PalatinoLTStd-Roman" "Palatino
 
 # Trajan Pro (trajan, \usepackage{trajan})
 trajan: (_doc "trajan" "TrajanPro-Regular" "TrajanPro-Bold")
+
+# Minion Pro (minion, \usepackage{minion}): weights, condensed, optical sizes
+minion: (_doc "minion" "MinionPro-Capt" "MinionPro-Regular" "MinionPro-Disp" "MinionPro-BoldCnIt" "MyriadPro-Regular")
+
+# Myriad Pro (myriad, \usepackage{myriad}): weights x widths
+myriad: (_doc "myriad" "MyriadPro-Light" "MyriadPro-BlackSemiExtIt" "MyriadPro-BoldCond" "MyriadPro-SemiCn")
 
 clean:
     rm -rf {{outdir}}
