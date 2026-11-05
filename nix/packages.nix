@@ -1,9 +1,9 @@
 # packages.nix — all packages of this repository for one nixpkgs instance.
 #
-# The TeX packages (mtp2) are TeX-Live-shaped derivations
+# The TeX packages (minmath, mtp2) are TeX-Live-shaped derivations
 # (outputSpecified/tlOutputName/fontMaps) meant to be passed to
 # texlive.withPackages next to texlivePackages, e.g.
-#   pkgs.texliveSmall.withPackages (ps: [ps.latexmk mtp2])
+#   pkgs.texliveSmall.withPackages (ps: [ps.latexmk minmath mtp2])
 #
 # NOTE: all fonts are non-free; `pkgs` must allow unfree packages.
 pkgs: let
@@ -16,5 +16,6 @@ in {
   # System fonts (NixOS fonts.packages): Adobe Font Folio 11 + Emigre Triplex.
   contextFonts = callPackage ./context-fonts.nix {inherit sources adobeFontFolio triplexOtf;};
   # TeX Live packages.
+  minmath = callPackage ./minmath.nix {inherit sources adobeFontFolio;};
   mtp2 = callPackage ./mtp2.nix {inherit sources;};
 }

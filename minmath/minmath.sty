@@ -1,0 +1,87 @@
+%% minmath.sty -- Minion Pro text + typoma Minion Math for pdfLaTeX.
+%%
+%% Part of the "minmath" TeX Live package (../nix/minmath.nix). Loads, in
+%% the order minionmath.sty asks for:
+%%   fontenc[T1] -> minionmath[withamsmath,amssymb,<options>] -> amsmath
+%%   -> minionamsmath
+%% and makes Minion Pro (NFSS family "minionpro", generated with otftotfm,
+%% optical sizes Capt/Text/Subh/Disp, series m/d/sb/b, shapes n/it/sc) the
+%% roman text family. Option `myriad' also makes Myriad Pro (family
+%% "myriadpro", series l/m/sb/b, shapes n/it) the sans-serif family; option
+%% `triplex' makes Emigre Triplex Sans (family "triplexsans" from the separate
+%% "triplex" TeX package, series m/b/eb = Light/Bold/XBold, italic from
+%% Triplex Italic) the sans-serif family, scaled by \triplexscale (default
+%% here 1.08, the cap-height ratio of Minion Pro to Triplex Sans), which may
+%% be changed in the preamble with \renewcommand*{\triplexscale}{<factor>}.
+%% Every other package option is passed on to minionmath.sty (e.g.
+%% intlimits, textcomp, extraops).
+%%
+%% NOTE: non-free fonts (typoma / Adobe licenses).
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{minmath}[2026/10/17 v1.0 Minion Pro text + Minion Math]
+\let\minmath@sf\@empty
+\DeclareOption{myriad}{\def\minmath@sf{myriadpro}}
+\DeclareOption{triplex}{\def\minmath@sf{triplexsans}}
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{minionmath}}
+\ProcessOptions\relax
+\RequirePackage[T1]{fontenc}
+\renewcommand{\rmdefault}{minionpro}
+\renewcommand{\familydefault}{\rmdefault}
+\ifx\minmath@sf\@empty\else
+  \edef\sfdefault{\minmath@sf}
+\fi
+% Triplex Sans comes from the separate "triplex" package; its fd files read
+% \triplexscale at font load time.
+\def\minmath@triplex{triplexsans}
+\ifx\minmath@sf\minmath@triplex
+  \IfFileExists{t1triplexsans.fd}{}{%
+    \PackageWarningNoLine{minmath}{Option `triplex' needs the `triplex'
+      TeX package (t1triplexsans.fd not found)}}%
+  \providecommand*{\triplexscale}{1.08}
+\fi
+\PassOptionsToPackage{withamsmath,amssymb}{minionmath}
+% Classes may load amsmath/amssymb/mathptmx before us (e.g. wlscirep.cls),
+% and the LaTeX >= 2024 kernel defines \jmath, \hbar, ... itself, while
+% fontmath.minion uses plain \DeclareMathSymbol, which errors on commands
+% that already exist. Let the Minion Math declarations win: undefine a
+% command right before it is (re)declared while minionmath.sty loads.
+\let\minmath@DeclareMathSymbol\DeclareMathSymbol
+\def\minmath@undefine#1{%
+  \ifcat\noexpand#1\relax\let#1\@undefined\fi}
+\def\DeclareMathSymbol#1{\minmath@undefine{#1}\minmath@DeclareMathSymbol{#1}}
+% withamsmath undefines \iint & co. for amsmath to define them afterwards;
+% if amsmath is already loaded it will not do so again, so keep its macros.
+\@ifpackageloaded{amsmath}{%
+  \let\minmath@iint\iint \let\minmath@iiint\iiint
+  \let\minmath@dddot\dddot \let\minmath@ddddot\ddddot
+}{}
+\RequirePackage{minionmath}
+\let\DeclareMathSymbol\minmath@DeclareMathSymbol
+\@ifundefined{iint}{\let\iint\minmath@iint}{}
+\@ifundefined{iiint}{\let\iiint\minmath@iiint}{}
+\@ifundefined{dddot}{\let\dddot\minmath@dddot}{}
+\@ifundefined{ddddot}{\let\ddddot\minmath@ddddot}{}
+\RequirePackage{amsmath}
+\RequirePackage{minionamsmath}
+% Math accents. fontmath.minion (newmath setup) redeclares \hat & co. in
+% the `letters' font (MSP, slots 0-13), but since LaTeX 2020 these kernel
+% accents are robust commands whose real definition lives in `\hat<space>';
+% that inner macro keeps the kernel's \mathaccent"705E (an operators-font
+% slot, i.e. the ASCII caret of the T1 font here), and amsmath converts it.
+% Point the inner macros at the Minion Math accent glyphs again.
+\def\minmath@accent#1#2{%
+  \expandafter\ifx\csname#1\space\endcsname\relax\else
+    \expandafter\xdef\csname#1\space\endcsname{%
+      \noexpand\mathaccentV{#1}\hexnumber@\symletters#2}%
+  \fi}
+\minmath@accent{grave}{00}
+\minmath@accent{acute}{01}
+\minmath@accent{hat}{02}
+\minmath@accent{tilde}{03}
+\minmath@accent{ddot}{04}
+\minmath@accent{check}{07}
+\minmath@accent{breve}{08}
+\minmath@accent{bar}{09}
+\minmath@accent{dot}{0A}
+\minmath@accent{vec}{0D}
+\endinput
