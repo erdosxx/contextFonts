@@ -1,40 +1,33 @@
 {
-  description = "Install required fonts for ConTeXt";
+  description = "Non-free fonts for ConTeXt/NixOS and TeX Live packages built from them";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs }:
-    let
-      systems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
-      forAllSystems = nixpkgs.lib.genAttrs systems;
+  outputs = {
+    self,
+    nixpkgs,
+  }: let
+    systems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
+    forAllSystems = nixpkgs.lib.genAttrs systems;
+    # The fonts are unfree; allow them for the packages built by this flake.
+    pkgsFor = system:
+      import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+  in {
+    # packages.<system>:
+    #   contextFonts    Adobe Font Folio 11 + Emigre Triplex OTFs in
+    #                   share/fonts/opentype (NixOS: fonts.packages)
+    #   adobeFontFolio, triplexOtf  the two halves of contextFonts
+    packages = forAllSystems (system: let
+      pkgs = import ./nix/packages.nix (pkgsFor system);
     in
-    {
-      packages = forAllSystems (system:
-        let
-          pkgs = import nixpkgs { inherit system; };
-        in
-        {
-          contextFonts = pkgs.stdenv.mkDerivation rec {
-            pname = "contextFonts";
-            version = "0.1";
+      pkgs // {default = pkgs.contextFonts;});
 
-            src = pkgs.fetchzip {
-              url = "https://github.com/erdosxx/${pname}/releases/download/${version}/Adobe_Font_Folio_11.zip";
-              sha256 = "sha256-vUfzTXZ9+GtxvotRe3l4LzVH72vUmEKrss1kdKtKRys=";
-              # headers = [ "Authorization: token ${builtins.getEnv "GITHUB_TOKEN"}" ];
-            };
-
-            installPhase = ''
-              runHook preInstall
-
-              find . -name "*.otf" -exec cp {} . \;
-              install -Dm644 *.otf -t $out/share/fonts/opentype
-
-              runHook postInstall
-            '';
-          };
-        });
-    };
+    # Overlay adding the packages to a consumer's nixpkgs (needs allowUnfree).
+    overlays.default = final: prev: import ./nix/packages.nix final;
+  };
 }
